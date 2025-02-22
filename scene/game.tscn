@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://xm8i5odpo24p"]
+
+[ext_resource type="Script" uid="uid://c7krlwiladbok" path="res://net/minecraft/Minecraft.cs" id="1_5kiuu"]
+[ext_resource type="Texture2D" uid="uid://c5ojvykfo8cp2" path="res://assets/icons.png" id="2_dbls1"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_5kiuu")
+
+[node name="Gui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cursor" type="Sprite2D" parent="Gui"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(427, 240)
+scale = Vector2(2, 2)
+texture = ExtResource("2_dbls1")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
