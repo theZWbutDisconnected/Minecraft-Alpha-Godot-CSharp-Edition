@@ -14,7 +14,7 @@ public class GrassTile : Tile
         }
     }
 
-    public void tick(Level level, int x, int y, int z, Random random) {
+    public override void tick(Level level, int x, int y, int z, Random random) {
         if (!level.isLit(x, y, z)) {
             level.setTile(x, y, z, Tile.dirt.id);
         } else {
