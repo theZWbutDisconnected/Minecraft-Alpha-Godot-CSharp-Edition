@@ -12,7 +12,7 @@ public partial class Minecraft : Node3D
     public int height;
     private Timer timer = new Timer(20.0F);
     public Level level;
-    private LevelRenderer levelRenderer;
+    public LevelRenderer levelRenderer;
     private Player player;
     public int paintTexture = 1;
     private ParticleEngine particleEngine;
@@ -361,12 +361,11 @@ public partial class Minecraft : Node3D
     }
 
     MeshInstance3D[] hits = new MeshInstance3D[1];
-    bool[] free = new bool[1];
     private void drawGui(float a)
     {
-        if (this.hits[0] != null && !this.free[0]) {
-            this.free[0] = true;
+        if (this.hits[0] != null) {
             this.hits[0].QueueFree();
+            this.hits[0] = null;
         }
         Tesselator t = Tesselator.instance;
         t.init();
@@ -375,7 +374,6 @@ public partial class Minecraft : Node3D
         mesh.RotationDegrees = new Vector3(15.0F, 50.0F, 15.0F);
         mesh.GlobalPosition = new Vector3(0.0F, 0.0F, -12.0F);
         this.hits[0] = mesh;
-        this.free[0] = false;
         this.tileShower.TextureFilter = CanvasItem.TextureFilterEnum.Nearest;
         this.tileShower.Texture = this.viewport.GetTexture();
         this.tileShower.Position = new Vector2(410.0F, -200.0F);

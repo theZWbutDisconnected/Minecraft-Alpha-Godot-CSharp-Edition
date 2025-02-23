@@ -10,7 +10,8 @@ public partial class Tesselator : Node
     private Color currentColor = Colors.White;
     private Vector2 currentUV = Vector2.Zero;
     private Vector3 currentNormal = Vector3.Zero;
-    
+    private int currentId = -1;
+
     private const int MAX_VERTICES = 524288 / 3;
     
     public static Tesselator instance = new Tesselator();
@@ -20,17 +21,18 @@ public partial class Tesselator : Node
         init();
     }
 
-    public void init()
+    public void init(int id = -1)
     {
-        surfaceTool?.Clear();
-        surfaceTool = new SurfaceTool();
-        surfaceTool.Begin(Mesh.PrimitiveType.Triangles);
-        vertices = 0;
-        hasColor = false;
-        hasUV = false;
-        currentColor = Colors.White;
-        currentUV = Vector2.Zero;
-        currentNormal = Vector3.Zero;
+        this.surfaceTool?.Clear();
+        this.surfaceTool = new SurfaceTool();
+        this.surfaceTool.Begin(Mesh.PrimitiveType.Triangles);
+        this.vertices = 0;
+        this.hasColor = false;
+        this.hasUV = false;
+        this.currentColor = Colors.White;
+        this.currentUV = Vector2.Zero;
+        this.currentNormal = Vector3.Zero;
+        this.currentId = id;
     }
 
     public MeshInstance3D flush()
@@ -44,12 +46,12 @@ public partial class Tesselator : Node
         {
             Mesh = mesh,
             MaterialOverride = new StandardMaterial3D() {
-                Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
+                Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass,
                 DepthDrawMode = BaseMaterial3D.DepthDrawModeEnum.Always,
                 AlbedoTexture = Textures.texture,
-                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
                 TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
-                CullMode = BaseMaterial3D.CullModeEnum.Disabled
+                CullMode = BaseMaterial3D.CullModeEnum.Disabled,
+                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded
             }
         };
         

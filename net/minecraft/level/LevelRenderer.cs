@@ -6,7 +6,7 @@ public class LevelRenderer : ILevelListener {
     public static readonly int MAX_REBUILDS_PER_FRAME = 8;
     public static readonly int CHUNK_SIZE = 16;
     private Level level;
-    private Chunk[] chunks;
+    public Chunk[] chunks;
     private static Tesselator t;
     private int xChunks;
     private int yChunks;
@@ -26,6 +26,7 @@ public class LevelRenderer : ILevelListener {
         this.zChunks = level.height / 16;
         this.chunks = new Chunk[this.xChunks * this.yChunks * this.zChunks];
 
+        int id = 0;
         for(int x = 0; x < this.xChunks; ++x) {
             for(int y = 0; y < this.yChunks; ++y) {
                 for(int z = 0; z < this.zChunks; ++z) {
@@ -47,7 +48,11 @@ public class LevelRenderer : ILevelListener {
                         z1 = level.height;
                     }
 
-                    this.chunks[(x + y * this.xChunks) * this.zChunks + z] = new Chunk(level, x0, y0, z0, x1, y1, z1);
+                    int pos = (x + y * this.xChunks) * this.zChunks + z;
+                    Chunk chunk = new Chunk(level, x0, y0, z0, x1, y1, z1);
+                    chunk.chunkId = id;
+                    this.chunks[pos] = chunk;
+                    id++;
                 }
             }
         }
@@ -136,13 +141,12 @@ public class LevelRenderer : ILevelListener {
     }
 
     MeshInstance3D[] hits = new MeshInstance3D[1];
-    bool[] free = new bool[1];
 
     public void renderHit(HitResult h, int editMode, int tileType)
     {
-        if (this.hits[0] != null && !this.free[0]) {
-            this.free[0] = true;
+        if (this.hits[0] != null) {
             this.hits[0].QueueFree();
+            this.hits[0] = null;
         }
         if (h != null) {
             if (editMode == 0) {
@@ -155,7 +159,6 @@ public class LevelRenderer : ILevelListener {
                 this.hits[0] = t.flush();
                 StandardMaterial3D mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
                 mat.AlbedoColor = new Color(0.0F, 0.0F, 0.0F, ((float)Math.Sin((double)Time.GetTicksMsec() / (double)100.0F) * 0.2F + 0.4F) * 0.5F);
-                this.free[0] = false;
             } else {
                 float br = (float)Math.Sin((double)Time.GetTicksMsec() / (double)100.0F) * 0.2F + 0.8F;
                 int x = h.x;
@@ -195,7 +198,6 @@ public class LevelRenderer : ILevelListener {
                 this.hits[0] = t.flush();
                 StandardMaterial3D mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
                 mat.AlbedoColor = new Color(br, br, br, (float)Math.Sin((double)Time.GetTicksMsec() / (double)200.0F) * 0.2F + 0.5F);
-                this.free[0] = false;
             }
         }
     }

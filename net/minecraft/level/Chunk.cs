@@ -16,6 +16,7 @@ public class Chunk
     public readonly float z;
     private bool dirty = true;
     private int lists = -1;
+    public int chunkId = 0;
     public long dirtiedTime = 0L;
     private static Tesselator t;
     public static int updates;
@@ -43,10 +44,16 @@ public class Chunk
         this.aabb = new AABB((float)x0, (float)y0, (float)z0, (float)x1, (float)y1, (float)z1);
     }
 
+    public MeshInstance3D meshInstance;
     private void rebuild(int layer) {
         this.dirty = false;
         ++updates;
         long before = (long)Time.GetTicksMsec();
+        if (meshInstance != null) {
+            meshInstance.Free();
+            meshInstance = null;
+        }
+        
         t.init();
         int tiles = 0;
 
@@ -62,7 +69,8 @@ public class Chunk
             }
         }
 
-        t.flush();
+        meshInstance = t.flush();
+
         long after = (long)Time.GetTicksMsec();
         if (tiles > 0) {
             totalTime += after - before;
@@ -73,7 +81,6 @@ public class Chunk
 
     public void rebuild() {
         this.rebuild(0);
-        this.rebuild(1);
     }
 
     public void render(int layer) {
