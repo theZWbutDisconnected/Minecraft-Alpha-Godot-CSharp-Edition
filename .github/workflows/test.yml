@@ -41,7 +41,7 @@ jobs:
           godot --headless --export-release Android ./android-release.apk
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: android-release
           path: ./android-release.apk
