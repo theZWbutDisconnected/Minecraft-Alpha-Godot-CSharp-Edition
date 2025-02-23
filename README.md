@@ -1,2 +1,4 @@
 # Minecraft Alpha Godot CSharp Edition
- Author: ZerWhit (me)
+ * Author: ZerWhit (me)
+   
+**UNFINISHED PROJECT.**
