@@ -65,7 +65,7 @@ public partial class Entity : Node3D
         }
     }
 
-    public void tick() {
+    public virtual void tick() {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
@@ -133,6 +133,6 @@ public partial class Entity : Node3D
         return this.level.isLit(xTile, yTile, zTile);
     }
 
-    public void render(float a) {
+    public virtual void render(float a) {
     }
 }

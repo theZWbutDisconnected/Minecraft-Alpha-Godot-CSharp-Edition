@@ -26,36 +26,48 @@ public class Tile {
         float c2 = 0.8F;
         float c3 = 0.6F;
         if (this.shouldRenderFace(level, x, y - 1, z, layer)) {
+            if (level.isLit(x, y - 1, z) ^ layer == 0)
+                c1 *= 0.4F;
             t.color(c1, c1, c1);
             t.normal(0, -1, 0);
             this.renderFace(t, x, y, z, 0);
         }
 
         if (this.shouldRenderFace(level, x, y + 1, z, layer)) {
+            if (level.isLit(x, y + 1, z) ^ layer == 0)
+                c1 *= 0.4F;
             t.color(c1, c1, c1);
             t.normal(0, 1, 0);
             this.renderFace(t, x, y, z, 1);
         }
 
         if (this.shouldRenderFace(level, x, y, z - 1, layer)) {
+            if (level.isLit(x, y, z - 1) ^ layer == 0)
+                c2 *= 0.4F;
             t.color(c2, c2, c2);
             t.normal(0, 0, -1);
             this.renderFace(t, x, y, z, 2);
         }
 
         if (this.shouldRenderFace(level, x, y, z + 1, layer)) {
+            if (level.isLit(x, y, z + 1) ^ layer == 0)
+                c2 *= 0.4F;
             t.color(c2, c2, c2);
             t.normal(0, 0, 1);
             this.renderFace(t, x, y, z, 3);
         }
 
         if (this.shouldRenderFace(level, x - 1, y, z, layer)) {
+            if (level.isLit(x - 1, y, z) ^ layer == 0)
+                c3 *= 0.4F;
             t.color(c3, c3, c3);
             t.normal(-1, 0, 0);
             this.renderFace(t, x, y, z, 4);
         }
 
         if (this.shouldRenderFace(level, x + 1, y, z, layer)) {
+            if (level.isLit(x + 1, y, z) ^ layer == 0)
+                c3 *= 0.4F;
             t.color(c3, c3, c3);
             t.normal(1, 0, 0);
             this.renderFace(t, x, y, z, 5);
@@ -64,7 +76,7 @@ public class Tile {
     }
 
     private bool shouldRenderFace(Level level, int x, int y, int z, int layer) {
-        return !level.isSolidTile(x, y, z) && level.isLit(x, y, z) ^ layer == 1;
+        return !level.isSolidTile(x, y, z);
     }
 
     protected virtual int getTexture(int face) {

@@ -158,6 +158,7 @@ public class LevelRenderer : ILevelListener {
 
                 this.hits[0] = t.flush();
                 StandardMaterial3D mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
+                mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
                 mat.AlbedoColor = new Color(0.0F, 0.0F, 0.0F, ((float)Math.Sin((double)Time.GetTicksMsec() / (double)100.0F) * 0.2F + 0.4F) * 0.5F);
             } else {
                 float br = (float)Math.Sin((double)Time.GetTicksMsec() / (double)100.0F) * 0.2F + 0.8F;
@@ -197,6 +198,7 @@ public class LevelRenderer : ILevelListener {
 
                 this.hits[0] = t.flush();
                 StandardMaterial3D mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
+                mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
                 mat.AlbedoColor = new Color(br, br, br, (float)Math.Sin((double)Time.GetTicksMsec() / (double)200.0F) * 0.2F + 0.5F);
             }
         }

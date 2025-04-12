@@ -10,8 +10,11 @@ public partial class Player : Entity
         this.camera.Fov = 70.0f;
         this.camera.Near = 0.05f;
         this.camera.Far = 1000.0f;
+
+        FogVolume fog = new FogVolume();
         
         AddChild(this.camera);
+        this.camera.AddChild(fog);
     }
 
     public void tick() {

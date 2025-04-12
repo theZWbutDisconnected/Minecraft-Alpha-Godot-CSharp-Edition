@@ -46,12 +46,13 @@ public partial class Tesselator : Node
         {
             Mesh = mesh,
             MaterialOverride = new StandardMaterial3D() {
-                Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass,
+                Transparency = BaseMaterial3D.TransparencyEnum.AlphaHash,
                 DepthDrawMode = BaseMaterial3D.DepthDrawModeEnum.Always,
                 AlbedoTexture = Textures.texture,
                 TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
                 CullMode = BaseMaterial3D.CullModeEnum.Disabled,
-                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded
+                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+                VertexColorUseAsAlbedo = true
             }
         };
         

@@ -13,7 +13,7 @@ public partial class Minecraft : Node3D
     private Timer timer = new Timer(20.0F);
     public Level level;
     public LevelRenderer levelRenderer;
-    private Player player;
+    public Player player;
     public int paintTexture = 1;
     private ParticleEngine particleEngine;
     private List<Entity> entities = new List<Entity>();
@@ -286,6 +286,7 @@ public partial class Minecraft : Node3D
         Frustum frustum = Frustum.getFrustum();
         this.levelRenderer.updateDirtyChunks(this.player);
         this.setupFog(0);
+        this.particleEngine.render(this.player, a, 0);
         this.setupFog(1);
         this.levelRenderer.render(this.player, 0);
 
