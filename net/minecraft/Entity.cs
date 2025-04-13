@@ -26,6 +26,7 @@ public partial class Entity : Node3D
     public Entity(Level level) {
         this.level = level;
         this.resetPos();
+        this.Name = "Entity";
     }
 
     public void resetPos() {
@@ -110,7 +111,6 @@ public partial class Entity : Node3D
         this.x = (this.bb.x0 + this.bb.x1) / 2.0F;
         this.y = this.bb.y0 + this.heightOffset;
         this.z = (this.bb.z0 + this.bb.z1) / 2.0F;
-        this.GlobalPosition = new Vector3(this.x, this.y, this.z);
     }
 
     public void moveRelative(float xa, float za, float speed) {

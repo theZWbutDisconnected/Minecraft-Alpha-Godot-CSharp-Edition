@@ -20,6 +20,7 @@ public class LevelRenderer : ILevelListener {
     public LevelRenderer(Level level, Textures textures) {
         this.level = level;
         this.textures = textures;
+        this.textures.loadTexture("/terrain.png", 9728);
         level.addListener(this);
         this.xChunks = level.width / 16;
         this.yChunks = level.depth / 16;

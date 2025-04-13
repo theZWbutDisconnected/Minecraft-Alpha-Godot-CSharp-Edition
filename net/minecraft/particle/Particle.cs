@@ -31,6 +31,7 @@ public partial class Particle : Entity
         this.size = (float)(new Random().NextDouble() * (double)0.5F + (double)0.5F);
         this.lifetime = (int)((double)4.0F / (new Random().NextDouble() * 0.9 + 0.1));
         this.age = 0;
+        this.Name = "Particle";
     }
 
     public override void tick() {

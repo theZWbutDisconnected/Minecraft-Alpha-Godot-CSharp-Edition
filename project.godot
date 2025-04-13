@@ -29,6 +29,7 @@ window/size/viewport_height=480
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+window/per_pixel_transparency/allowed=true
 window/vsync/vsync_mode=0
 
 [dotnet]
@@ -39,6 +40,8 @@ project/assembly_name="Minecraft"
 
 textures/canvas_textures/default_texture_filter=0
 textures/canvas_textures/default_texture_repeat=1
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.5, 0.8, 1, 1)
 occlusion_culling/use_occlusion_culling=true

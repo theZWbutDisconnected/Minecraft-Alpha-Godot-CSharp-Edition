@@ -28,6 +28,7 @@ public partial class Level : Node
         }
 
         this.calcLightDepths(0, 0, w, h);
+        this.Name = "Level";
     }
 
     public bool load()

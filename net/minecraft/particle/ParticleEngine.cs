@@ -42,12 +42,8 @@ public class ParticleEngine
             }
 
             this.particleTemp[0] = t.flush();
-            this.particleTemp[0].MaterialOverride = new StandardMaterial3D() { 
-                AlbedoTexture = Textures.texture, 
-                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
-                AlbedoColor = new Color(0.8F, 0.8F, 0.8F, 1.0F),
-                VertexColorUseAsAlbedo = true
-            };
+            StandardMaterial3D mat = this.particleTemp[0].MaterialOverride as StandardMaterial3D;
+            mat.AlbedoColor = new Color(0.8F, 0.8F, 0.8F, 1.0F);
         }
     }
 
