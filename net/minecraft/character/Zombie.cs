@@ -55,7 +55,6 @@ public partial class Zombie : Entity
     }
 
     public override void render(float a) {
-        // int id = this.textures.loadTexture("/char.png", 9728);
         double time = (double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed + (double)this.timeOffs;
         float size = 0.058333334F;
         float yy = (float)(-Math.Abs(Math.Sin(time * 0.6662)) * (double)5.0F - (double)23.0F);

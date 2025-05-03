@@ -1,4 +1,5 @@
 
+using System;
 using Godot;
 
 public class Cube {
@@ -61,34 +62,34 @@ public class Cube {
         this.z = z;
     }
 
-    MeshInstance3D[] hits = new MeshInstance3D[1];
-    public void render(Node3D parent) {
-        if (this.hits[0] != null) {
-            this.hits[0].QueueFree();
-            this.hits[0] = null;
-        }
-        ArrayMesh mesh = new ArrayMesh();
+    private MeshInstance3D[] hits = new MeshInstance3D[1];
+    public void render(Node3D parent = null) {
+        // if (this.hits[0] != null) {
+        //     this.hits[0].QueueFree();
+        //     this.hits[0] = null;
+        // }
+        Tesselator t = Tesselator.instance;
+        t.init();
         if (!this.compiled) {
-            mesh = this.compile();
+            this.compile(t);
         }
 
         float c = 57.29578F;
-        this.hits[0] = new MeshInstance3D();
-        this.hits[0].Mesh = mesh;
-        this.hits[0].Translate(new Vector3(this.x, this.y, this.z));
-        this.hits[0].RotateZ(this.zRot * c);
-        this.hits[0].RotateY(this.yRot * c);
-        this.hits[0].RotateX(this.xRot * c);
-        parent.AddChild(this.hits[0]);
+        try {
+            this.hits[0] = t.flush(parent);
+            this.hits[0].Translate(new Vector3(this.x, this.y, this.z));
+            this.hits[0].RotateZ(this.zRot * c);
+            this.hits[0].RotateY(this.yRot * c);
+            this.hits[0].RotateX(this.xRot * c);
+            ((StandardMaterial3D) this.hits[0].MaterialOverride).AlbedoTexture = (Texture2D)GD.Load("res://assets/char.png");
+        } catch (Exception e) {
+        }
     }
 
-    private ArrayMesh compile() {
-        SurfaceTool st = new SurfaceTool();
-        st.Begin(Mesh.PrimitiveType.Triangles);
+    private void compile(Tesselator t) {
         for(int i = 0; i < this.polygons.Length; ++i) {
-            this.polygons[i].render(st);
+            this.polygons[i].render(t);
         }
         this.compiled = true;
-        return st.Commit();
     }
 }

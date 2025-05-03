@@ -18,13 +18,21 @@ public class Polygon {
         vertices[3] = vertices[3].remap((float)u1, (float)v1);
     }
 
-    public void render(SurfaceTool st) {
-        st.SetColor(new Color(1.0F, 1.0F, 1.0F));
-        for(int i = 3; i >= 0; --i) {
-            Vertex v = this.vertices[i];
-            st.SetUV(new Vector2(v.u / 63.999F, v.v / 31.999F));
-            st.SetNormal(new Vector3(v.pos.X, v.pos.Y, v.pos.Z));
-            st.AddVertex(new Vector3(v.pos.X, v.pos.Y, v.pos.Z));
+    public void render(Tesselator t) {
+        if (this.vertices.Length >= 3) {
+            Vertex v0 = this.vertices[0];
+            Vertex v1 = this.vertices[1];
+            Vertex v2 = this.vertices[2];
+            t.vertexUV(v0.pos.X, v0.pos.Y, v0.pos.Z, v0.u / 63.999F, v0.v / 31.999F);
+            t.vertexUV(v1.pos.X, v1.pos.Y, v1.pos.Z, v1.u / 63.999F, v1.v / 31.999F);
+            t.vertexUV(v2.pos.X, v2.pos.Y, v2.pos.Z, v2.u / 63.999F, v2.v / 31.999F);
+
+            if (this.vertices.Length >= 4) {
+                Vertex v3 = this.vertices[3];
+                t.vertexUV(v0.pos.X, v0.pos.Y, v0.pos.Z, v0.u / 63.999F, v0.v / 31.999F);
+                t.vertexUV(v2.pos.X, v2.pos.Y, v2.pos.Z, v2.u / 63.999F, v2.v / 31.999F);
+                t.vertexUV(v3.pos.X, v3.pos.Y, v3.pos.Z, v3.u / 63.999F, v3.v / 31.999F);
+            }
         }
     }
 }

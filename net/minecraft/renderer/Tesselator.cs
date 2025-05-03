@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Tesselator : Node
+public partial class Tesselator : Node3D
 {
     private SurfaceTool surfaceTool;
     private int vertices = 0;
@@ -10,7 +10,6 @@ public partial class Tesselator : Node
     private Color currentColor = Colors.White;
     private Vector2 currentUV = Vector2.Zero;
     private Vector3 currentNormal = Vector3.Zero;
-    private int currentId = -1;
 
     private const int MAX_VERTICES = 524288 / 3;
     
@@ -22,7 +21,7 @@ public partial class Tesselator : Node
         init();
     }
 
-    public void init(int id = -1)
+    public void init()
     {
         this.surfaceTool?.Clear();
         this.surfaceTool = new SurfaceTool();
@@ -33,10 +32,9 @@ public partial class Tesselator : Node
         this.currentColor = Colors.White;
         this.currentUV = Vector2.Zero;
         this.currentNormal = Vector3.Zero;
-        this.currentId = id;
     }
 
-    public MeshInstance3D flush()
+    public MeshInstance3D flush(Node3D parent = null)
     {
         if (vertices == 0) return null;
 
@@ -47,7 +45,7 @@ public partial class Tesselator : Node
         {
             Mesh = mesh,
             MaterialOverride = new StandardMaterial3D() {
-                Transparency = BaseMaterial3D.TransparencyEnum.AlphaHash,
+                Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor,
                 DepthDrawMode = BaseMaterial3D.DepthDrawModeEnum.Always,
                 AlbedoTexture = Textures.texture,
                 TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
@@ -56,8 +54,9 @@ public partial class Tesselator : Node
                 VertexColorUseAsAlbedo = true
             }
         };
-        
-        AddChild(meshInstance);
+        if (parent == null)
+            parent = Tesselator.instance;
+        parent.AddChild(meshInstance);
         
         init();
         return meshInstance;

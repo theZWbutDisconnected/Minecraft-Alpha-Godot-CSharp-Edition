@@ -297,7 +297,6 @@ public partial class Minecraft : Node3D
             }
         }
 
-        this.particleEngine.render(this.player, a, 0);
         this.levelRenderer.renderHit(this.hitResult, this.editMode, this.paintTexture);
 
         this.drawGui(a);

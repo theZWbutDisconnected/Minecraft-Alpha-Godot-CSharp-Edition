@@ -1,10 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://xm8i5odpo24p"]
+[gd_scene load_steps=6 format=3 uid="uid://xm8i5odpo24p"]
 
 [ext_resource type="Script" uid="uid://c7krlwiladbok" path="res://net/minecraft/Minecraft.cs" id="1_5kiuu"]
 [ext_resource type="Texture2D" uid="uid://c5ojvykfo8cp2" path="res://assets/icons.png" id="2_dbls1"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dbls1"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_33cqm"]
+sky_material = SubResource("ProceduralSkyMaterial_dbls1")
+
+[sub_resource type="Environment" id="Environment_xwcet"]
+sky = SubResource("Sky_33cqm")
+tonemap_mode = 2
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.796243, 0.796243, 0.796243, 1)
+fog_density = 1.0
+
 [node name="Game" type="Node3D"]
 script = ExtResource("1_5kiuu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xwcet")
 
 [node name="Gui" type="Control" parent="."]
 layout_mode = 3
