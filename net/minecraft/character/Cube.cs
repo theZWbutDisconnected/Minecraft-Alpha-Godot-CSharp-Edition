@@ -64,32 +64,52 @@ public class Cube {
 
     private MeshInstance3D[] hits = new MeshInstance3D[1];
     public void render(Node3D parent = null) {
-        // if (this.hits[0] != null) {
-        //     this.hits[0].QueueFree();
-        //     this.hits[0] = null;
-        // }
+        if (this.hits[0] != null) {
+            this.hits[0].QueueFree();
+            this.hits[0] = null;
+        }
+        
         Tesselator t = Tesselator.instance;
         t.init();
         if (!this.compiled) {
             this.compile(t);
         }
-
-        float c = 57.29578F;
+    
         try {
             this.hits[0] = t.flush(parent);
-            this.hits[0].Translate(new Vector3(this.x, this.y, this.z));
-            this.hits[0].RotateZ(this.zRot * c);
-            this.hits[0].RotateY(this.yRot * c);
-            this.hits[0].RotateX(this.xRot * c);
-            ((StandardMaterial3D) this.hits[0].MaterialOverride).AlbedoTexture = (Texture2D)GD.Load("res://assets/char.png");
+            if (this.hits[0] != null && this.hits[0].MaterialOverride != null) 
+            {
+                this.hits[0].RotationDegrees = new Vector3(
+                    this.xRot * 57.29578F,
+                    this.yRot * 57.29578F,
+                    this.zRot * 57.29578F
+                );
+                this.hits[0].Position = new Vector3(this.x, this.y, this.z);
+                
+                var mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
+                if (mat != null && mat.AlbedoTexture == null) 
+                {
+                    var texture = GD.Load<Texture2D>("res://assets/char.png");
+                    if (texture != null) {
+                        mat.AlbedoTexture = texture;
+                    } else {
+                        GD.PrintErr("Failed to load texture: res://assets/char.png");
+                    }
+                }
+            }
         } catch (Exception e) {
+            GD.PrintErr("Cube render error: ", e.Message);
         }
     }
 
     private void compile(Tesselator t) {
         for(int i = 0; i < this.polygons.Length; ++i) {
+            if (this.polygons[i] == null) {
+                GD.PrintErr($"Cube polygon {i} is null!");
+                continue;
+            }
             this.polygons[i].render(t);
         }
-        this.compiled = true;
+        // this.compiled = true;
     }
 }

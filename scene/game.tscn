@@ -12,8 +12,8 @@ sky_material = SubResource("ProceduralSkyMaterial_dbls1")
 
 [sub_resource type="Environment" id="Environment_xwcet"]
 sky = SubResource("Sky_33cqm")
-tonemap_mode = 2
-glow_enabled = true
+ambient_light_source = 1
+reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.501961, 0.8, 1, 1)

@@ -11,7 +11,7 @@ public class LevelRenderer : ILevelListener {
     private int xChunks;
     private int yChunks;
     private int zChunks;
-    private Textures textures;
+    public Textures textures;
 
     public static void _static() {
         t = Tesselator.instance;

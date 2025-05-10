@@ -34,32 +34,32 @@ public partial class Tesselator : Node3D
         this.currentNormal = Vector3.Zero;
     }
 
-    public MeshInstance3D flush(Node3D parent = null)
-    {
-        if (vertices == 0) return null;
-
-        surfaceTool.Index();
-        ArrayMesh mesh = surfaceTool.Commit();
-        
-        MeshInstance3D meshInstance = new MeshInstance3D
-        {
-            Mesh = mesh,
-            MaterialOverride = new StandardMaterial3D() {
-                Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor,
-                DepthDrawMode = BaseMaterial3D.DepthDrawModeEnum.Always,
-                AlbedoTexture = Textures.texture,
-                TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
-                CullMode = BaseMaterial3D.CullModeEnum.Disabled,
-                ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
-                VertexColorUseAsAlbedo = true
-            }
-        };
-        if (parent == null)
-            parent = Tesselator.instance;
-        parent.AddChild(meshInstance);
-        
-        init();
-        return meshInstance;
+    public MeshInstance3D flush(Node3D parent = null) {
+        if (vertices > 0) {
+            surfaceTool.Index();
+            ArrayMesh mesh = surfaceTool.Commit();
+            
+            MeshInstance3D meshInstance = new MeshInstance3D
+            {
+                Mesh = mesh,
+                MaterialOverride = new StandardMaterial3D() {
+                    Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor,
+                    DepthDrawMode = BaseMaterial3D.DepthDrawModeEnum.Always,
+                    AlbedoTexture = Textures.texture,
+                    TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest,
+                    CullMode = BaseMaterial3D.CullModeEnum.Disabled,
+                    ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+                    VertexColorUseAsAlbedo = true
+                }
+            };
+            if (parent == null)
+                parent = Tesselator.instance;
+            parent.AddChild(meshInstance);
+            
+            init();
+            return meshInstance;
+        }
+        return null;
     }
 
     public void tex(float u, float v)

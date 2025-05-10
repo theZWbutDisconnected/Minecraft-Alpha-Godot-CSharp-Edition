@@ -218,11 +218,11 @@ public partial class Minecraft : Node3D
         this.player = new Player(this.level);
         this.particleEngine = new ParticleEngine(this.level, this.textures);
 
-        for(int i = 0; i < 10; ++i) {
-            Zombie zombie = new Zombie(this.level, this.textures, 128.0F, 0.0F, 128.0F);
-            zombie.resetPos();
-            this.entities.Add(zombie);
-        }
+        // for(int i = 0; i < 10; ++i) {
+        //     Zombie zombie = new Zombie(this.level, this.textures, 128.0F, 0.0F, 128.0F);
+        //     zombie.resetPos();
+        //     this.entities.Add(zombie);
+        // }
 
         Camera3D viewCam = new Camera3D();
         viewCam.RotationDegrees = new Vector3(0.0F, 0.0F, 0.0F);

@@ -11,7 +11,7 @@ public partial class Zombie : Entity
     private static ZombieModel zombieModel = new ZombieModel();
     private Textures textures;
 
-    public Zombie(Level level, Textures textures, float v1, float v2, float v3) : base(level)
+    public Zombie(Level level, Textures textures, float x, float y, float z) : base(level)
     {
         this.textures = textures;
         this.rotA = (float)(new Random().NextDouble() + (double)1.0F) * 0.01F;
@@ -55,15 +55,16 @@ public partial class Zombie : Entity
     }
 
     public override void render(float a) {
-        double time = (double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed + (double)this.timeOffs;
+        this.textures.loadTexture("/char.png", 9728);
+        double time = ((double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed + (double)this.timeOffs) * (20.0 / 30.0);
         float size = 0.058333334F;
-        float yy = (float)(-Math.Abs(Math.Sin(time * 0.6662)) * (double)5.0F - (double)23.0F);
-        Translate(new Vector3(this.xo + (this.x - this.xo) * a, this.yo + (this.y - this.yo) * a, this.zo + (this.z - this.zo) * a));
-        SetScale(new Vector3(1.0F, -1.0F, 1.0F));
-        SetScale(new Vector3(size, size, size));
-        Translate(new Vector3(0.0F, yy, 0.0F));
+        float yy = (float)(Math.Abs(Math.Sin(time * 0.6662)) * (double)2.5F + 1.6F);
+        Position = new Vector3(this.xo + (this.x - this.xo) * a, this.yo + (this.y - this.yo) * a, this.zo + (this.z - this.zo) * a);
+        SetScale(new Vector3(size, -size, size));
+        Position += new Vector3(0.0F, yy, 0.0F);
         float c = 57.29578F;
-        RotateY(this.rot * c + 180.0F);
+        RotationDegrees = new Vector3(RotationDegrees.X, this.rot * c + 180.0F, RotationDegrees.Z);
         zombieModel.render((float)time, this);
+        this.textures.loadTexture("/terrain.png", 9728);
     }
 }
