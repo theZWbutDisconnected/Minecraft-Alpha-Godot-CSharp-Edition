@@ -22,10 +22,12 @@ public class Tile {
     }
 
     public virtual void render(Tesselator t, Level level, int layer, int x, int y, int z) {
-        float c1 = 1.0F;
-        float c2 = 0.8F;
-        float c3 = 0.6F;
+        float c1;
+        float c2;
+        float c3;
+
         if (this.shouldRenderFace(level, x, y - 1, z, layer)) {
+            c1 = 1.0F;
             if (level.isLit(x, y - 1, z) ^ layer == 0)
                 c1 *= 0.4F;
             t.color(c1, c1, c1);
@@ -34,7 +36,8 @@ public class Tile {
         }
 
         if (this.shouldRenderFace(level, x, y + 1, z, layer)) {
-            if (level.isLit(x, y + 1, z) ^ layer == 0)
+            c1 = 1.0F;
+            if (level.isLit(x, y, z) ^ layer == 0)
                 c1 *= 0.4F;
             t.color(c1, c1, c1);
             t.normal(0, 1, 0);
@@ -42,6 +45,7 @@ public class Tile {
         }
 
         if (this.shouldRenderFace(level, x, y, z - 1, layer)) {
+            c2 = 0.8F;
             if (level.isLit(x, y, z - 1) ^ layer == 0)
                 c2 *= 0.4F;
             t.color(c2, c2, c2);
@@ -50,6 +54,7 @@ public class Tile {
         }
 
         if (this.shouldRenderFace(level, x, y, z + 1, layer)) {
+            c2 = 0.8F;
             if (level.isLit(x, y, z + 1) ^ layer == 0)
                 c2 *= 0.4F;
             t.color(c2, c2, c2);
@@ -58,6 +63,7 @@ public class Tile {
         }
 
         if (this.shouldRenderFace(level, x - 1, y, z, layer)) {
+            c3 = 0.6F;
             if (level.isLit(x - 1, y, z) ^ layer == 0)
                 c3 *= 0.4F;
             t.color(c3, c3, c3);
@@ -66,6 +72,7 @@ public class Tile {
         }
 
         if (this.shouldRenderFace(level, x + 1, y, z, layer)) {
+            c3 = 0.6F;
             if (level.isLit(x + 1, y, z) ^ layer == 0)
                 c3 *= 0.4F;
             t.color(c3, c3, c3);

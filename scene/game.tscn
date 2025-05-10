@@ -13,9 +13,10 @@ sky_material = SubResource("ProceduralSkyMaterial_dbls1")
 [sub_resource type="Environment" id="Environment_xwcet"]
 sky = SubResource("Sky_33cqm")
 tonemap_mode = 2
+glow_enabled = true
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0.796243, 0.796243, 0.796243, 1)
+fog_light_color = Color(0.501961, 0.8, 1, 1)
 fog_density = 1.0
 
 [node name="Game" type="Node3D"]
