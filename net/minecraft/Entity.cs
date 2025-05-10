@@ -22,11 +22,12 @@ public partial class Entity : Node3D
     public float heightOffset = 0.0F;
     protected float bbWidth = 0.6F;
     protected float bbHeight = 1.8F;
+    public Guid entityUUID = Guid.NewGuid();
 
     public Entity(Level level) {
         this.level = level;
         this.resetPos();
-        this.Name = "Entity";
+        this.Name = "Entity" + this.entityUUID.ToString();
     }
 
     public void resetPos() {

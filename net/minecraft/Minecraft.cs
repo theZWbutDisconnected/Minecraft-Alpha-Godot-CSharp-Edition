@@ -101,7 +101,8 @@ public partial class Minecraft : Node3D
             }
 
             if (@key.KeyLabel == Key.G) {
-                this.entities.Add(new Zombie(this.level, this.textures, this.player.x, this.player.y, this.player.z));
+                Zombie zombie = new Zombie(this.level, this.textures, this.player.x, this.player.y, this.player.z);
+                this.entities.Add(zombie);
             }
         }
     }
@@ -218,11 +219,11 @@ public partial class Minecraft : Node3D
         this.player = new Player(this.level);
         this.particleEngine = new ParticleEngine(this.level, this.textures);
 
-        // for(int i = 0; i < 10; ++i) {
-        //     Zombie zombie = new Zombie(this.level, this.textures, 128.0F, 0.0F, 128.0F);
-        //     zombie.resetPos();
-        //     this.entities.Add(zombie);
-        // }
+        for(int i = 0; i < 10; ++i) {
+            Zombie zombie = new Zombie(this.level, this.textures, 128.0F, 0.0F, 128.0F);
+            zombie.resetPos();
+            this.entities.Add(zombie);
+        }
 
         Camera3D viewCam = new Camera3D();
         viewCam.RotationDegrees = new Vector3(0.0F, 0.0F, 0.0F);
@@ -292,7 +293,7 @@ public partial class Minecraft : Node3D
 
         for(int i = 0; i < this.entities.Count; ++i) {
             Entity entity = (Entity)this.entities[i];
-            if (entity.isLit() && frustum.isVisible(entity.bb)) {
+            if (frustum.isVisible(entity.bb)) {
                 ((Entity)this.entities[i]).render(a);
             }
         }
@@ -406,6 +407,9 @@ public partial class Minecraft : Node3D
         this.particleEngine.tick();
 
         for(int i = 0; i < this.entities.Count; ++i) {
+            if (this.level.FindChild(((Entity)this.entities[i]).Name) == null) {
+                this.level.AddChild((Entity)this.entities[i]);
+            }
             ((Entity)this.entities[i]).tick();
             if (((Entity)this.entities[i]).removed) {
                 this.entities.Remove((Entity)this.entities[i]);

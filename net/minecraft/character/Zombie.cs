@@ -8,7 +8,7 @@ public partial class Zombie : Entity
     public float timeOffs;
     public float speed;
     public float rotA;
-    private static ZombieModel zombieModel = new ZombieModel();
+    private ZombieModel zombieModel = new ZombieModel();
     private Textures textures;
 
     public Zombie(Level level, Textures textures, float x, float y, float z) : base(level)
@@ -19,7 +19,6 @@ public partial class Zombie : Entity
         this.timeOffs = (float)new Random().NextDouble() * 1239813.0F;
         this.rot = (float)(new Random().NextDouble() * Math.PI * (double)2.0F);
         this.speed = 1.0F;
-        this.level.AddChild(this);
     }
 
     public override void tick() {
@@ -56,7 +55,7 @@ public partial class Zombie : Entity
 
     public override void render(float a) {
         this.textures.loadTexture("/char.png", 9728);
-        double time = ((double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed + (double)this.timeOffs) * (20.0 / 30.0);
+        double time = (double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed * (20.0 / 30.0) + (double)this.timeOffs;
         float size = 0.058333334F;
         float yy = (float)(Math.Abs(Math.Sin(time * 0.6662)) * (double)2.5F + 1.6F);
         Position = new Vector3(this.xo + (this.x - this.xo) * a, this.yo + (this.y - this.yo) * a, this.zo + (this.z - this.zo) * a);
