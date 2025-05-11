@@ -79,11 +79,10 @@ public class Cube {
             this.hits[0] = t.flush(parent);
             if (this.hits[0] != null && this.hits[0].MaterialOverride != null) 
             {
-                this.hits[0].RotationDegrees = new Vector3(
-                    this.xRot * 57.29578F,
-                    this.yRot * 57.29578F,
-                    this.zRot * 57.29578F
-                );
+                this.hits[0].RotationDegrees = new Vector3(0, 0, 0);
+                this.hits[0].RotateX(Mathf.DegToRad(this.xRot * 57.29578F));
+                this.hits[0].RotateY(Mathf.DegToRad(this.yRot * 57.29578F));
+                this.hits[0].RotateZ(Mathf.DegToRad(this.zRot * 57.29578F));
                 this.hits[0].Position = new Vector3(this.x, this.y, this.z);
                 
                 var mat = (StandardMaterial3D)this.hits[0].MaterialOverride;
