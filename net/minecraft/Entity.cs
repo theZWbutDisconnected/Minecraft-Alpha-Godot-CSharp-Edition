@@ -136,6 +136,7 @@ public partial class Entity : Node3D
     }
 
     public virtual void render(float a) {
+        debugRender(a);
     }
 
     Vector3[] verts = new Vector3[8];
@@ -149,6 +150,9 @@ public partial class Entity : Node3D
             debugMesh.TopLevel = true;
             AddChild(debugMesh);
         }
+        debugMesh.Visible = Minecraft.instance.showDebugBoxes;
+        if (!Minecraft.instance.showDebugBoxes)
+            return;
 
         var immediateMesh = new ImmediateMesh();
         var material = new StandardMaterial3D 
