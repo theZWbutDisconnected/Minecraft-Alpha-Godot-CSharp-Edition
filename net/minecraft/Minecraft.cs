@@ -23,7 +23,7 @@ public partial class Minecraft : Node3D
     public Textures textures;
     private int editMode = 0;
     private volatile bool running = false;
-    public bool showDebugBoxes = false;
+    private bool showDebugBoxes = false;
     public String fpsString = "";
     private bool mouseGrabbed = false;
     private HitResult hitResult = null;
@@ -303,6 +303,9 @@ public partial class Minecraft : Node3D
                 ((Entity)this.entities[i]).render(a);
             } else {
                 ((Entity)this.entities[i]).Visible = false;
+            }
+            if (this.showDebugBoxes) {
+                entity.debugRender(a);
             }
         }
 
