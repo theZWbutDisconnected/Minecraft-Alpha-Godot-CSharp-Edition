@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://xm8i5odpo24p"]
+[gd_scene load_steps=7 format=3 uid="uid://xm8i5odpo24p"]
 
 [ext_resource type="Script" uid="uid://c7krlwiladbok" path="res://net/minecraft/Minecraft.cs" id="1_5kiuu"]
 [ext_resource type="Texture2D" uid="uid://c5ojvykfo8cp2" path="res://assets/icons.png" id="2_dbls1"]
+[ext_resource type="Script" uid="uid://ci66dlf4j2oqa" path="res://net/minecraft/server/ServerLauncher.cs" id="3_33cqm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dbls1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -41,3 +42,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_dbls1")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_33cqm")
