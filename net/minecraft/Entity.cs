@@ -28,6 +28,7 @@ public partial class Entity : Node3D
         this.level = level;
         this.resetPos();
         this.Name = "Entity" + this.entityUUID.ToString();
+        this.level.AddChild(this);
     }
 
     public void resetPos() {

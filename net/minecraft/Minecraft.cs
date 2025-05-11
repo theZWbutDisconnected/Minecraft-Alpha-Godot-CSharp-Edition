@@ -407,9 +407,6 @@ public partial class Minecraft : Node3D
         this.particleEngine.tick();
 
         for(int i = 0; i < this.entities.Count; ++i) {
-            if (this.level.FindChild(((Entity)this.entities[i]).Name) == null) {
-                this.level.AddChild((Entity)this.entities[i]);
-            }
             ((Entity)this.entities[i]).tick();
             if (((Entity)this.entities[i]).removed) {
                 this.entities.Remove((Entity)this.entities[i]);

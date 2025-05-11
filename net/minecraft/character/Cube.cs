@@ -64,19 +64,19 @@ public class Cube {
 
     private MeshInstance3D[] hits = new MeshInstance3D[1];
     public void render(Node3D parent = null) {
-        if (this.hits[0] != null) {
-            this.hits[0].QueueFree();
-            this.hits[0] = null;
-        }
+        // if (this.hits[0] != null) {
+        //     this.hits[0].QueueFree();
+        //     this.hits[0] = null;
+        // }
         
         Tesselator t = Tesselator.instance;
         t.init();
         if (!this.compiled) {
             this.compile(t);
+            this.hits[0] = t.flush(parent);
         }
     
         try {
-            this.hits[0] = t.flush(parent);
             if (this.hits[0] != null && this.hits[0].MaterialOverride != null) 
             {
                 this.hits[0].RotationDegrees = new Vector3(0, 0, 0);
@@ -109,6 +109,6 @@ public class Cube {
             }
             this.polygons[i].render(t);
         }
-        // this.compiled = true;
+        this.compiled = true;
     }
 }
