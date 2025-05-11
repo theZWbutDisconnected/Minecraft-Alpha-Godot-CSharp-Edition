@@ -57,10 +57,11 @@ public partial class Zombie : Entity
         this.textures.loadTexture("/char.png", 9728);
         double time = (double)Time.GetTicksMsec() / 1000.0 * 10.0 * (double)this.speed * (20.0 / 30.0) + (double)this.timeOffs;
         float size = 0.058333334F;
-        float yy = (float)(Math.Abs(Math.Sin(time * 0.6662)) * (double)2.5F + 1.6F);
+        float yy = (float)(Math.Abs(Math.Sin(time * 0.6662)) * (double)2.5F);
         Position = new Vector3(this.xo + (this.x - this.xo) * a, this.yo + (this.y - this.yo) * a, this.zo + (this.z - this.zo) * a);
         SetScale(new Vector3(size, -size, size));
-        Position += new Vector3(0.0F, yy, 0.0F);
+        // Position += new Vector3(0.0F, yy, 0.0F);
+        Position += new Vector3(0.0F, 1.6F, 0.0F);
         float c = 57.29578F;
         RotationDegrees = new Vector3(RotationDegrees.X, this.rot * c + 180.0F, RotationDegrees.Z);
         zombieModel.render((float)time, this);

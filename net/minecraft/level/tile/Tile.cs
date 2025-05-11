@@ -29,7 +29,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x, y - 1, z, layer)) {
             c1 = 1.0F;
             if (level.isLit(x, y - 1, z) ^ layer == 0)
-                c1 *= 0.6F;
+                c1 *= 0.5F;
             t.color(c1, c1, c1);
             t.normal(0, -1, 0);
             this.renderFace(t, x, y, z, 0);
@@ -38,7 +38,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x, y + 1, z, layer)) {
             c1 = 1.0F;
             if (level.isLit(x, y, z) ^ layer == 0)
-                c1 *= 0.6F;
+                c1 *= 0.5F;
             t.color(c1, c1, c1);
             t.normal(0, 1, 0);
             this.renderFace(t, x, y, z, 1);
@@ -47,7 +47,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x, y, z - 1, layer)) {
             c2 = 0.8F;
             if (level.isLit(x, y, z - 1) ^ layer == 0)
-                c2 *= 0.6F;
+                c2 *= 0.5F;
             t.color(c2, c2, c2);
             t.normal(0, 0, -1);
             this.renderFace(t, x, y, z, 2);
@@ -56,7 +56,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x, y, z + 1, layer)) {
             c2 = 0.8F;
             if (level.isLit(x, y, z + 1) ^ layer == 0)
-                c2 *= 0.6F;
+                c2 *= 0.5F;
             t.color(c2, c2, c2);
             t.normal(0, 0, 1);
             this.renderFace(t, x, y, z, 3);
@@ -65,7 +65,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x - 1, y, z, layer)) {
             c3 = 0.6F;
             if (level.isLit(x - 1, y, z) ^ layer == 0)
-                c3 *= 0.6F;
+                c3 *= 0.5F;
             t.color(c3, c3, c3);
             t.normal(-1, 0, 0);
             this.renderFace(t, x, y, z, 4);
@@ -74,7 +74,7 @@ public class Tile {
         if (this.shouldRenderFace(level, x + 1, y, z, layer)) {
             c3 = 0.6F;
             if (level.isLit(x + 1, y, z) ^ layer == 0)
-                c3 *= 0.6F;
+                c3 *= 0.5F;
             t.color(c3, c3, c3);
             t.normal(1, 0, 0);
             this.renderFace(t, x, y, z, 5);

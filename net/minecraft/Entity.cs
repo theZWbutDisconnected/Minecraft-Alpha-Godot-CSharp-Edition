@@ -137,4 +137,64 @@ public partial class Entity : Node3D
 
     public virtual void render(float a) {
     }
+
+    Vector3[] verts = new Vector3[8];
+    public void debugRender(float a)
+    {
+        var debugMesh = GetNodeOrNull<MeshInstance3D>("DebugAABBMesh");
+        if (debugMesh == null)
+        {
+            debugMesh = new MeshInstance3D();
+            debugMesh.Name = "DebugAABBMesh";
+            debugMesh.TopLevel = true;
+            AddChild(debugMesh);
+        }
+
+        var immediateMesh = new ImmediateMesh();
+        var material = new StandardMaterial3D 
+        {
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+            AlbedoColor = new Color(1, 0, 0, 1),
+            NoDepthTest = false
+        };
+
+        immediateMesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
+        
+        verts[0] = new Vector3(bb.x0 + (this.x - this.xo) * a, bb.y0 + (this.y - this.yo) * a, bb.z0 + (this.z - this.zo) * a);
+        verts[1] = new Vector3(bb.x1 + (this.x - this.xo) * a, bb.y0 + (this.y - this.yo) * a, bb.z0 + (this.z - this.zo) * a);
+        verts[2] = new Vector3(bb.x1 + (this.x - this.xo) * a, bb.y0 + (this.y - this.yo) * a, bb.z1 + (this.z - this.zo) * a);
+        verts[3] = new Vector3(bb.x0 + (this.x - this.xo) * a, bb.y0 + (this.y - this.yo) * a, bb.z1 + (this.z - this.zo) * a);
+        verts[4] = new Vector3(bb.x0 + (this.x - this.xo) * a, bb.y1 + (this.y - this.yo) * a, bb.z0 + (this.z - this.zo) * a);
+        verts[5] = new Vector3(bb.x1 + (this.x - this.xo) * a, bb.y1 + (this.y - this.yo) * a, bb.z0 + (this.z - this.zo) * a);
+        verts[6] = new Vector3(bb.x1 + (this.x - this.xo) * a, bb.y1 + (this.y - this.yo) * a, bb.z1 + (this.z - this.zo) * a);
+        verts[7] = new Vector3(bb.x0 + (this.x - this.xo) * a, bb.y1 + (this.y - this.yo) * a, bb.z1 + (this.z - this.zo) * a);
+
+        drawLineStrip(immediateMesh, new int[] {0,1,2,3,0});
+        drawLineStrip(immediateMesh, new int[] {4,5,6,7,4});
+        for(int i=0; i<4; i++) 
+        {
+            drawLine(immediateMesh, verts[i], verts[i+4]);
+        }
+
+        immediateMesh.SurfaceEnd();
+
+        debugMesh.Mesh = immediateMesh;
+        debugMesh.MaterialOverride = material;
+        
+        debugMesh.GlobalPosition = Vector3.Zero;
+    }
+
+    private void drawLine(ImmediateMesh mesh, Vector3 a, Vector3 b)
+    {
+        mesh.SurfaceAddVertex(a);
+        mesh.SurfaceAddVertex(b);
+    }
+
+    private void drawLineStrip(ImmediateMesh mesh, int[] indices)
+    {
+        for(int i=0; i<indices.Length-1; i++)
+        {
+            drawLine(mesh, verts[indices[i]], verts[indices[i+1]]);
+        }
+    }
 }

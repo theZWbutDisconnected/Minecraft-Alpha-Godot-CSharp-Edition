@@ -23,6 +23,7 @@ public partial class Minecraft : Node3D
     public Textures textures;
     private int editMode = 0;
     private volatile bool running = false;
+    private bool showDebugBoxes = false;
     public String fpsString = "";
     private bool mouseGrabbed = false;
     private HitResult hitResult = null;
@@ -103,6 +104,10 @@ public partial class Minecraft : Node3D
             if (@key.KeyLabel == Key.G) {
                 Zombie zombie = new Zombie(this.level, this.textures, this.player.x, this.player.y, this.player.z);
                 this.entities.Add(zombie);
+            }
+            
+            if (@key.KeyLabel == Key.F3 && @key.Pressed) {
+                this.showDebugBoxes = !this.showDebugBoxes;
             }
         }
     }
@@ -294,7 +299,13 @@ public partial class Minecraft : Node3D
         for(int i = 0; i < this.entities.Count; ++i) {
             Entity entity = (Entity)this.entities[i];
             if (frustum.isVisible(entity.bb)) {
+                ((Entity)this.entities[i]).Visible = true;
                 ((Entity)this.entities[i]).render(a);
+            } else {
+                ((Entity)this.entities[i]).Visible = false;
+            }
+            if (this.showDebugBoxes) {
+                entity.debugRender(a);
             }
         }
 

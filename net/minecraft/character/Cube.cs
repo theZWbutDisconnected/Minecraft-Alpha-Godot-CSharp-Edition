@@ -64,11 +64,6 @@ public class Cube {
 
     private MeshInstance3D[] hits = new MeshInstance3D[1];
     public void render(Node3D parent = null) {
-        // if (this.hits[0] != null) {
-        //     this.hits[0].QueueFree();
-        //     this.hits[0] = null;
-        // }
-        
         Tesselator t = Tesselator.instance;
         t.init();
         if (!this.compiled) {
