@@ -50,7 +50,7 @@ public class MinecraftServer : IServerListener
     public void Start()
     {
         _running = true;
-        new Thread(Run).Start(); // Godot建议使用Task或自定义线程管理
+        new Thread(Run).Start(); 
     }
 
     private void Run()
@@ -58,7 +58,7 @@ public class MinecraftServer : IServerListener
         while (_running)
         {
             Tick();
-            Thread.Sleep(5); // 保持与Java相同的5ms间隔
+            Thread.Sleep(5); 
         }
     }
 
