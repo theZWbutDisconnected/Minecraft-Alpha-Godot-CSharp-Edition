@@ -23,50 +23,50 @@ public class MinecraftServer : IServerListener
         }
     }
 
-    public void ClientConnected(SocketConnection connection)
+    public void clientConnected(SocketConnection connection)
     {
         Client client = new Client(this, connection);
         _clientMap.Add(connection, client);
         _clients.Add(client);
-        GD.Print($"Client connected: {connection.GetIP()}");
+        GD.Print($"Client connected: {connection.getIP()}");
     }
 
-    public void Disconnect(Client client)
+    public void disconnect(Client client)
     {
         _clientMap.Remove(client.ServerConnection);
         _clients.Remove(client);
         client.ServerConnection.Dispose();
-        GD.Print($"Client disconnected: {client.ServerConnection.GetIP()}");
+        GD.Print($"Client disconnected: {client.ServerConnection.getIP()}");
     }
 
-    public void ClientException(SocketConnection connection, System.Exception e)
+    public void clientException(SocketConnection connection, System.Exception e)
     {
         if (_clientMap.TryGetValue(connection, out Client client))
         {
-            client.HandleException(e);
+            client.handleException(e);
         }
     }
 
-    public void Start()
+    public void start()
     {
         _running = true;
-        new Thread(Run).Start(); 
+        new Thread(run).Start(); 
     }
 
-    private void Run()
+    private void run()
     {
         while (_running)
         {
-            Tick();
+            tick();
             Thread.Sleep(5); 
         }
     }
 
-    private void Tick()
+    private void tick()
     {
         try 
         {
-            _socketServer.Tick();
+            _socketServer.tick();
         }
         catch (System.Exception e)
         {
@@ -74,12 +74,12 @@ public class MinecraftServer : IServerListener
         }
     }
 
-    public void Stop()
+    public void stop()
     {
         _running = false;
         foreach (var client in _clients.ToArray())
         {
-            Disconnect(client);
+            disconnect(client);
         }
     }
 }

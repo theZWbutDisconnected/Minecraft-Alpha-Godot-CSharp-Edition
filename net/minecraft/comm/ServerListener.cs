@@ -3,6 +3,6 @@ using System;
 
 public interface IServerListener
 {
-    void ClientConnected(SocketConnection connection);
-    void ClientException(SocketConnection connection, Exception exception);
+    void clientConnected(SocketConnection connection);
+    void clientException(SocketConnection connection, Exception exception);
 }

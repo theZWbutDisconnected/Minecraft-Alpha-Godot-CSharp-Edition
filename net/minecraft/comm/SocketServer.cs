@@ -20,7 +20,7 @@ public class SocketServer
         listener.Server.Blocking = false;
     }
 
-    public void Tick()
+    public void tick()
     {
         while (listener.Pending())
         {
@@ -30,17 +30,16 @@ public class SocketServer
                 client.Blocking = false;
                 SocketConnection conn = new SocketConnection(client);
                 connections.Add(conn);
-                serverListener.ClientConnected(conn);
+                serverListener.clientConnected(conn);
             }
             catch (Exception e)
             {
-                // Handle exception
             }
         }
 
         for (int i = connections.Count - 1; i >= 0; i--)
         {
-            if (!connections[i].IsConnected())
+            if (!connections[i].isConnected())
             {
                 connections[i].Dispose();
                 connections.RemoveAt(i);
@@ -49,11 +48,11 @@ public class SocketServer
 
             try
             {
-                connections[i].Tick();
+                connections[i].tick();
             }
             catch (Exception e)
             {
-                serverListener.ClientException(connections[i], e);
+                serverListener.clientException(connections[i], e);
                 connections[i].Dispose();
                 connections.RemoveAt(i);
             }

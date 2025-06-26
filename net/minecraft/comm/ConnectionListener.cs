@@ -1,5 +1,5 @@
 public interface IConnectionListener
 {
-    void HandleException(System.Exception exception);
-    void Command(byte cmd, int remaining, byte[] buffer);
+    void handleException(System.Exception exception);
+    void command(byte cmd, int remaining, byte[] buffer);
 }

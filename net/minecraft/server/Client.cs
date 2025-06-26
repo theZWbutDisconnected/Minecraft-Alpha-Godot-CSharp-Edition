@@ -8,21 +8,20 @@ public class Client : IConnectionListener
     {
         _server = server;
         ServerConnection = connection;
-        connection.SetConnectionListener(this);
+        connection.setConnectionListener(this);
     }
 
-    public void Command(byte cmd, int remaining, byte[] buffer)
+    public void command(byte cmd, int remaining, byte[] buffer)
     {
-        // 根据实际业务逻辑实现命令处理
     }
 
-    public void HandleException(System.Exception exception)
+    public void handleException(System.Exception exception)
     {
-        Disconnect();
+        disconnect();
     }
 
-    public void Disconnect()
+    public void disconnect()
     {
-        _server.Disconnect(this);
+        _server.disconnect(this);
     }
 }

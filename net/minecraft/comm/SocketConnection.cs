@@ -42,13 +42,13 @@ public class SocketConnection : IDisposable
         Array.Clear(writeBuffer, 0, BUFFER_SIZE);
     }
 
-    public void SetMaxBlocksPerIteration(int max) => maxBlocksPerIteration = max;
+    public void setMaxBlocksPerIteration(int max) => maxBlocksPerIteration = max;
 
-    public string GetIP() => socket.RemoteEndPoint.ToString();
+    public string getIP() => socket.RemoteEndPoint.ToString();
 
-    public void SetConnectionListener(IConnectionListener listener) => connectionListener = listener;
+    public void setConnectionListener(IConnectionListener listener) => connectionListener = listener;
 
-    public bool IsConnected() => connected;
+    public bool isConnected() => connected;
 
     public void Dispose()
     {
@@ -60,7 +60,7 @@ public class SocketConnection : IDisposable
         socket = null;
     }
 
-    public void Tick()
+    public void tick()
     {
         if (socket.Available > 0)
         {
@@ -77,14 +77,14 @@ public class SocketConnection : IDisposable
 
         if (readPosition > 0)
         {
-            connectionListener?.Command(readBuffer[0], readPosition, readBuffer);
+            connectionListener?.command(readBuffer[0], readPosition, readBuffer);
             Array.Copy(readBuffer, 1, readBuffer, 0, readPosition - 1);
             readPosition--;
         }
     }
 
-    public int GetSentBytes() => totalBytesWritten;
-    public int GetReadBytes() => bytesRead;
-    public void ClearSentBytes() => totalBytesWritten = 0;
-    public void ClearReadBytes() => bytesRead = 0;
+    public int getSentBytes() => totalBytesWritten;
+    public int getReadBytes() => bytesRead;
+    public void clearSentBytes() => totalBytesWritten = 0;
+    public void clearReadBytes() => bytesRead = 0;
 }
